@@ -27,6 +27,21 @@ nslookup networkwalks.com
 3. **`03-nslookup.png`** — Terminal output confirming DNS resolution for `networkwalks.com`.
 4. **`04-vm-snapshot.png`** — Clean VM snapshot saved in the hypervisor snapshot manager.
 
+## Screenshots
+
+### 1. VM Network Settings
+![Network Settings](./01-network-settings.png)
+
+### 2. IP & Internet Connectivity Check
+![IP and Ping](./02-ip-ping.png)
+
+### 3. DNS Resolution Check
+![DNS Lookup](./03-nslookup.png)
+
+### 4. Clean VM Snapshot
+![VM Snapshot](./04-vm-snapshot.png)
+
+
 ## Author
 - **Name:** Jai Bhushan Rane
 - **Intern ID:** NW-084-3I7
