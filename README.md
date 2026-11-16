@@ -19,7 +19,7 @@ This repository documents my hands-on labs, reconnaissance assessments, vulnerab
 | :--- | :--- | :--- | :--- |
 | **[Week 1](./Week-1)** | **Cybersecurity Lab Setup** | VirtualBox / VMware, Kali Linux, NAT Networking, `ip`, `ping`, `nslookup` | Completed |
 | **[Week 2](./Week-2)** | **Footprinting & Network Scanning** | `whois`, `whatweb`, `nslookup`, `curl`, `wafw00f`, `dnsrecon`, `Nmap`, `Zenmap` | Completed |
-| **[Week 3](./Week-3)** | **Vulnerability Assessment & Password Auditing** | John the Ripper (`JTR`), Hydra, Wordlists | Upcoming |
+| **[Week 3](./Week-3)** | **Vulnerability Assessment & Password Auditing** | John the Ripper (`JTR`), Hydra, Wordlists | Completed |
 | **[Week 4](./Week-4)** | **Capstone Penetration Testing Report** | End-to-End Pentest Methodology, Risk Analysis & Remediation | Upcoming |
 
 ---
