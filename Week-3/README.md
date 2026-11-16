@@ -16,7 +16,7 @@ This document logs my Week 3 password recovery and cryptographic auditing labs f
 ## Screenshots
 
 ### 0. /home/kali/Downloads Location where the file is kept
-![/home/kali/Downloads Location where the file is kept](.0-kali-home-dir.png)
+![/home/kali/Downloads Location where the file is kept](./0-kali-home-dir.png)
 
 ### 1. PDF Hash Extraction (`pdf2john`)
 ![PDF Hash Extraction](./01-pdf-hash.png)
