@@ -15,14 +15,19 @@ This document logs my Week 3 password recovery and cryptographic auditing labs f
 
 ## Screenshots
 
+### 0. /home/kali/Downloads Location where the file is kept
+![/home/kali/Downloads Location where the file is kept](.0-kali-home-dir.png)
+
 ### 1. PDF Hash Extraction (`pdf2john`)
 ![PDF Hash Extraction](./01-pdf-hash.png)
 
 ### 2. Password Cracking with John the Ripper
 ![John the Ripper Crack](./02-jtr-cracked.png)
 
-### 3. Unlocked PDF Verification
+### 3.1. Unlocked PDF Verification/Enter the found password
 ![Unlocked PDF](./03-unlocked-pdf1.png)
+
+### 3.2. Unlocked PDF Data/Flag shown
 ![Unlocked PDF](./03-unlocked-pdf2.png)
 
 ### 4. Networkwalks Hash Calculator
