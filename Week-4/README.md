@@ -1,19 +1,5 @@
 # Week 4 Capstone Project: Black-Box Penetration Testing Report — Mediroza General Hospital
 
-### Phase 0: Pre-Engagement Footprinting & Infrastructure Enumeration
-Before interacting with the web application portals, passive and active reconnaissance was performed against `medirozahospital.com` to map DNS records, server headers, WAF presence, open network ports, and web server configurations (`whois`, `nslookup`, `whatweb`, `curl`, `wafw00f`, `dnsrecon`, `nmap`, and `nikto`).
-
-#### Evidence — Reconnaissance & Scanning (`./commands/`)
-![WHOIS Lookup](./commands/whois.png)
-![Nslookup DNS Records](./commands/nslookup.png)
-![DNSRecon Enumeration](./commands/dnsrecon.png)
-![WhatWeb Fingerprinting](./commands/whatweb.png)
-![cURL HTTP Headers](./commands/curl.png)
-![Wafw00f Firewall Detection](./commands/wafw00f.png)
-![Nmap Port & Service Scan](./commands/nmap.png)
-![Nikto Web Vulnerability Scan 1](./commands/nikto1.png)
-![Nikto Web Vulnerability Scan 2](./commands/nikto2.png)
-
 ## 01. Executive Summary
 A black-box security assessment was conducted against **Mediroza General Hospital** (`https://medirozahospital.com`) as part of the **Networkwalks Cybersecurity Internship (Batch B084)**. The objective was to evaluate the security posture of the hospital's public-facing web infrastructure, patient portal access controls, document encryption practices, and sensitive data storage.
 
@@ -27,21 +13,38 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 - **Target Application:** `https://medirozahospital.com` (Mediroza General Hospital)
 - **Assessment Type:** Authorized Black-Box Penetration Test
 - **Assessor:** Jai Bhushan Rane | **Intern ID:** `NW-084-3I7` | **Batch:** `B084`
-- **Tools Utilized:** Web Browser & Developer Inspection, `pdf2john`, `John the Ripper (JTR)`, `pdfcrack`, `rockyou.txt` Wordlist, Networkwalks Hash Calculator, Networkwalks Password Cracker, `grep` / Text Analysis
+- **Tools Utilized:** `whois`, `nslookup`, `dnsrecon`, `whatweb`, `curl`, `wafw00f`, `nmap`, `nikto`, Web Browser & Developer Inspection, `pdf2john`, `John the Ripper (JTR)`, `pdfcrack`, `rockyou.txt` Wordlist, Networkwalks Hash Calculator, Networkwalks Password Cracker, `grep` / Text Analysis
 
-### Assessment Methodology
-1. **Reconnaissance & Directory Enumeration (Milestone 1):** Inspected public metadata (`robots.txt`), analyzed directory indexing configurations across restricted paths (`/patient/`, `/staff/`, `/old/`), and verified authentication/error-handling behavior.
-2. **Cryptographic & Password Auditing (Milestone 2):** Extracted password hashes from retrieved patient PDF documents (`pdf2john` and Networkwalks Hash Calculator) and evaluated password entropy via offline dictionary and brute-force mask attacks (`John the Ripper`, `pdfcrack`, and Networkwalks Password Cracker).
-3. **Sensitive Data & Backup Exposure Analysis (Milestone 3):** Audited exposed backup directories (`/old/`) and inspected leaked SQL database dumps (`mediroza_db_backup_2019.sql`) for exposed PII, employee salaries, and shareholder records.
-4. **Risk Classification & Remediation Reporting (Milestone 4):** Rated findings by exploitability and business impact and documented actionable remediation steps.
+### Assessment Phases
+- **Phase 0 — Pre-Engagement Reconnaissance & Scanning:** Passive and active footprinting of domain, DNS, HTTP headers, WAF, network ports, and web server configurations.
+- **Phase 1 (M1) — Initial Access & Patient Lab Report Retrieval:** Enumerating `robots.txt`, directory listings, and portal access controls to retrieve restricted patient medical reports.
+- **Phase 2 (M2) — Data Extraction & PDF Encryption Auditing:** Extracting PDF password hashes and conducting offline dictionary and mask attacks to recover plaintext passwords and decrypt patient reports.
+- **Phase 3 (M3) — Critical Data Exposure Analysis:** Auditing exposed legacy backup directories (`/old/`) and inspecting leaked SQL database dumps for employee salaries and shareholder records.
+- **Phase 4 (M4) — Risk Classification & Remediation Reporting:** Assigning severity ratings and documenting actionable defensive remediations.
 
 ---
 
 ## 03. Findings and Proof of Exploitation
 
-### Milestone 1: Initial Access & Patient Lab Report Retrieval
+### Phase 0: Pre-Engagement Reconnaissance & Infrastructure Scanning
+Before interacting with the web application portals, passive and active reconnaissance was executed against `medirozahospital.com` to map DNS records, server headers, WAF presence, open network ports, and web server configurations.
+
+#### Evidence — Reconnaissance & Scanning (`./commands/`)
+![WHOIS Lookup](./commands/whois.png)
+![Nslookup DNS Records](./commands/nslookup.png)
+![DNSRecon Enumeration](./commands/dnsrecon.png)
+![WhatWeb Fingerprinting](./commands/whatweb.png)
+![cURL HTTP Headers](./commands/curl.png)
+![Wafw00f Firewall Detection](./commands/wafw00f.png)
+![Nmap Port & Service Scan](./commands/nmap.png)
+![Nikto Web Vulnerability Scan 1](./commands/nikto1.png)
+![Nikto Web Vulnerability Scan 2](./commands/nikto2.png)
+
+---
+
+### Phase 1 (M1): Initial Access & Patient Lab Report Retrieval
 - **Finding 1.1 — Sensitive Directory Disclosure via `robots.txt`:** Inspecting `/robots.txt` explicitly revealed restricted administrative and user directories (`/patient/`, `/staff/`, and `/old/`).
-- **Finding 1.2 — Unauthenticated Directory Indexing & Portal Exposure:** Apache directory listing was left enabled across sensitive folders, exposing application scripts (`portal.php`, `download.php`, `error_log`) and enabling retrieval of three password-protected patient medical lab reports (`patient_report_1.pdf`, `patient_report_2.pdf`, `patient_report_3.pdf`).
+- **Finding 1.2 — Unauthenticated Directory Indexing & Portal Exposure:** Directory listing was left enabled across sensitive folders, exposing application scripts (`portal.php`, `download.php`, `error_log`) and enabling retrieval of three password-protected patient medical lab reports (`patient_report_1.pdf`, `patient_report_2.pdf`, `patient_report_3.pdf`).
 
 #### Evidence — `robots.txt` & Directory Discovery
 ![Robots.txt Enumeration 1](./01-robots1.png)
@@ -54,7 +57,7 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 
 ---
 
-### Milestone 2: PDF Encryption Auditing & Data Extraction
+### Phase 2 (M2): Data Extraction & PDF Encryption Auditing
 - **Finding 2.1 — Weak Document Passwords on Patient Medical Reports:** Cryptographic hashes (`$pdf$2*3*128...`) were extracted from all three patient PDF files and audited using both offline CLI tools (`pdf2john`, `John the Ripper`, `pdfcrack`) and Networkwalks' online cryptographic utilities:
   - **`patient_report_1.pdf`:** Protected with a purely numeric sequence (`123456`).
   - **`patient_report_2.pdf`:** Protected with a top-10 dictionary word (`password`).
@@ -81,7 +84,7 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 
 ---
 
-### Milestone 3: Critical Data Exposure (Staff Salaries & Shareholder Records)
+### Phase 3 (M3): Critical Data Exposure (Staff Salaries & Shareholder Records)
 - **Finding 3.1 — Unauthenticated Database Backup Exposure (`/old/`):** Navigating to `/old/` revealed an enabled directory listing containing a full SQL database dump (`mediroza_db_backup_2019.sql`).
 - **Finding 3.2 — Compromise of Employee Compensation & Shareholder Data:** Inspecting the SQL dump exposed confidential `staff` table records (full names, job titles, departments, contact details, national IDs, and monthly salaries) alongside confidential `shareholder` ownership records.
 
@@ -92,7 +95,7 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 
 ---
 
-## 04. Risk Rating
+## 04. Phase 4 (M4): Risk Rating
 
 | ID | Vulnerability / Finding | Affected Component | Severity | Business & Security Impact |
 | :--- | :--- | :--- | :--- | :--- |
@@ -104,7 +107,7 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 
 ---
 
-## 05. Recommendations and Remediation
+## 05. Phase 4 (M4): Recommendations and Remediation
 
 1. **Remove Public Backups & Enforce Strict Storage Controls (Critical):**
    - Immediately delete `mediroza_db_backup_2019.sql` and the `/old/` directory from the web root. Store database backups in encrypted, non-public cloud buckets or offline storage with strict IAM access controls.
@@ -121,4 +124,3 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 
 ## Author
 - **Name:** Jai Bhushan Rane | **Intern ID:** `NW-084-3I7` | **Batch:** `B084`
-
