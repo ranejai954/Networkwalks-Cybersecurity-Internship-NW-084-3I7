@@ -10,7 +10,7 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 ## 02. Scope and Methodology
 
 ### Target & Engagement Details
-- **Target Application:** `https://medirozahospital.com` (Mediroza General Hospital)
+- **Target Application:** `https://medirozahospital.com`
 - **Assessment Type:** Authorized Black-Box Penetration Test
 - **Assessor:** Jai Bhushan Rane | **Intern ID:** `NW-084-3I7` | **Batch:** `B084`
 - **Tools Utilized:** `whois`, `nslookup`, `dnsrecon`, `whatweb`, `curl`, `wafw00f`, `nmap`, `nikto`, Web Browser & Developer Inspection, `pdf2john`, `John the Ripper (JTR)`, `pdfcrack`, `rockyou.txt` Wordlist, Networkwalks Hash Calculator, Networkwalks Password Cracker, `grep` / Text Analysis
@@ -30,32 +30,42 @@ The assessment uncovered multiple **Critical** and **High** severity vulnerabili
 Before interacting with the web application portals, passive and active reconnaissance was executed against `medirozahospital.com` to map DNS records, server headers, WAF presence, open network ports, and web server configurations.
 
 #### Evidence — Reconnaissance & Scanning (`./commands/`)
+
 - **WHOIS Lookup (`whois.png`):**
-![WHOIS Lookup](./commands/whois.png)
+
+  ![WHOIS Lookup](./commands/whois.png)
 
 - **Nslookup DNS Records (`nslookup.png`):**
-![Nslookup DNS Records](./commands/nslookup.png)
+
+  ![Nslookup DNS Records](./commands/nslookup.png)
 
 - **DNSRecon Enumeration (`dnsrecon.png`):**
-![DNSRecon Enumeration](./commands/dnsrecon.png)
+
+  ![DNSRecon Enumeration](./commands/dnsrecon.png)
 
 - **WhatWeb Fingerprinting (`whatweb.png`):**
-![WhatWeb Fingerprinting](./commands/whatweb.png)
+
+  ![WhatWeb Fingerprinting](./commands/whatweb.png)
 
 - **cURL HTTP Headers (`curl.png`):**
-![cURL HTTP Headers](./commands/curl.png)
+
+  ![cURL HTTP Headers](./commands/curl.png)
 
 - **Wafw00f Firewall Detection (`wafw00f.png`):**
-![Wafw00f Firewall Detection](./commands/wafw00f.png)
+
+  ![Wafw00f Firewall Detection](./commands/wafw00f.png)
 
 - **Nmap Port & Service Scan (`nmap.png`):**
-![Nmap Port & Service Scan](./commands/nmap.png)
+
+  ![Nmap Port & Service Scan](./commands/nmap.png)
 
 - **Nikto Web Vulnerability Scan 1 (`nikto1.png`):**
-![Nikto Web Vulnerability Scan 1](./commands/nikto1.png)
+
+  ![Nikto Web Vulnerability Scan 1](./commands/nikto1.png)
 
 - **Nikto Web Vulnerability Scan 2 (`nikto2.png`):**
-![Nikto Web Vulnerability Scan 2](./commands/nikto2.png)
+
+  ![Nikto Web Vulnerability Scan 2](./commands/nikto2.png)
 
 ---
 
@@ -64,21 +74,28 @@ Before interacting with the web application portals, passive and active reconnai
 - **Finding 1.2 — Unauthenticated Directory Indexing & Portal Exposure:** Directory listing was left enabled across sensitive folders, exposing application scripts (`portal.php`, `download.php`, `error_log`) and enabling retrieval of three password-protected patient medical lab reports (`patient_report_1.pdf`, `patient_report_2.pdf`, `patient_report_3.pdf`).
 
 #### Evidence — `robots.txt` & Directory Discovery
+
 - **Robots.txt & Disallowed Paths (`01-robots1.png`):**
-![01-robots1](./01-robots1.png)
+
+  ![01-robots1](./01-robots1.png)
 
 - **Robots.txt / Directory Check 2 (`01-robots2.png`):**
-![01-robots2](./01-robots2.png)
+
+  ![01-robots2](./01-robots2.png)
 
 - **Robots.txt / Directory Check 3 (`01-robots3.png`):**
-![01-robots3](./01-robots3.png)
+
+  ![01-robots3](./01-robots3.png)
 
 #### Evidence — Patient Portal & Report Access
+
 - **Portal Access & Report Retrieval 1 (`02-portal-access1.png`):**
-![02-portal-access1](./02-portal-access1.png)
+
+  ![02-portal-access1](./02-portal-access1.png)
 
 - **Portal Access & Report Retrieval 2 (`02-portal-access2.png`):**
-![02-portal-access2](./02-portal-access2.png)
+
+  ![02-portal-access2](./02-portal-access2.png)
 
 ---
 
@@ -89,48 +106,66 @@ Before interacting with the web application portals, passive and active reconnai
   - **`patient_report_3.pdf`:** Protected with a predictable keyboard symbol sequence (`!@#$%^&`).
 
 #### Evidence — John the Ripper Cracking (`03-jtr-cracked1` to `03-jtr-cracked3`)
+
 - **John the Ripper Crack 1 (`03-jtr-cracked1.png`):**
-![03-jtr-cracked1](./03-jtr-cracked1.png)
+
+  ![03-jtr-cracked1](./03-jtr-cracked1.png)
 
 - **John the Ripper Crack 2 (`03-jtr-cracked2.png`):**
-![03-jtr-cracked2](./03-jtr-cracked2.png)
+
+  ![03-jtr-cracked2](./03-jtr-cracked2.png)
 
 - **John the Ripper Crack 3 (`03-jtr-cracked3.png`):**
-![03-jtr-cracked3](./03-jtr-cracked3.png)
+
+  ![03-jtr-cracked3](./03-jtr-cracked3.png)
 
 #### Evidence — Networkwalks Hash Calculator & Cracker (`03-nwhc-cracked1` to `03-nwhc-cracked3`)
+
 - **NW Hash Calculator & Cracker 1 (`03-nwhc-cracked1.png`):**
-![03-nwhc-cracked1](./03-nwhc-cracked1.png)
+
+  ![03-nwhc-cracked1](./03-nwhc-cracked1.png)
 
 - **NW Hash Calculator & Cracker 2 (`03-nwhc-cracked2.png`):**
-![03-nwhc-cracked2](./03-nwhc-cracked2.png)
+
+  ![03-nwhc-cracked2](./03-nwhc-cracked2.png)
 
 - **NW Hash Calculator & Cracker 3 (`03-nwhc-cracked3.png`):**
-![03-nwhc-cracked3](./03-nwhc-cracked3.png)
+
+  ![03-nwhc-cracked3](./03-nwhc-cracked3.png)
 
 #### Evidence — PDFCrack Recovery (`03-pdfcrack31.png`)
+
 - **PDFCrack Symbol Password Recovery for PDF 3 (`03-pdfcrack31.png`):**
-![03-pdfcrack31](./03-pdfcrack31.png)
+
+  ![03-pdfcrack31](./03-pdfcrack31.png)
 
 #### Evidence — Password Prompt Verification (`04-unlocked-pdfspass1` to `04-unlocked-pdfspass3`)
+
 - **Entering Cracked Password for Report 1 (`04-unlocked-pdfspass1.png`):**
-![04-unlocked-pdfspass1](./04-unlocked-pdfspass1.png)
+
+  ![04-unlocked-pdfspass1](./04-unlocked-pdfspass1.png)
 
 - **Entering Cracked Password for Report 2 (`04-unlocked-pdfspass2.png`):**
-![04-unlocked-pdfspass2](./04-unlocked-pdfspass2.png)
+
+  ![04-unlocked-pdfspass2](./04-unlocked-pdfspass2.png)
 
 - **Entering Cracked Password for Report 3 (`04-unlocked-pdfspass3.png`):**
-![04-unlocked-pdfspass3](./04-unlocked-pdfspass3.png)
+
+  ![04-unlocked-pdfspass3](./04-unlocked-pdfspass3.png)
 
 #### Evidence — Decrypted Patient Lab Reports (`05-unlocked-pdfs1` to `05-unlocked-pdfs3`)
+
 - **Unlocked Patient Lab Report 1 (`05-unlocked-pdfs1.png`):**
-![05-unlocked-pdfs1](./05-unlocked-pdfs1.png)
+
+  ![05-unlocked-pdfs1](./05-unlocked-pdfs1.png)
 
 - **Unlocked Patient Lab Report 2 (`05-unlocked-pdfs2.png`):**
-![05-unlocked-pdfs2](./05-unlocked-pdfs2.png)
+
+  ![05-unlocked-pdfs2](./05-unlocked-pdfs2.png)
 
 - **Unlocked Patient Lab Report 3 (`05-unlocked-pdfs3.png`):**
-![05-unlocked-pdfs3](./05-unlocked-pdfs3.png)
+
+  ![05-unlocked-pdfs3](./05-unlocked-pdfs3.png)
 
 ---
 
@@ -139,14 +174,18 @@ Before interacting with the web application portals, passive and active reconnai
 - **Finding 3.2 — Compromise of Employee Compensation & Shareholder Data:** Inspecting the SQL dump exposed confidential `staff` table records (full names, job titles, departments, contact details, national IDs, and monthly salaries) alongside confidential `shareholder` ownership records.
 
 #### Evidence — Exposed `/old/` Backup Directory & SQL Database Dump
+
 - **Exposed `/old/` Directory Listing 1 (`06-old-folder1.png`):**
-![06-old-folder1](./06-old-folder1.png)
+
+  ![06-old-folder1](./06-old-folder1.png)
 
 - **Exposed `/old/` Directory Listing 2 (`06-old-folder2.png`):**
-![06-old-folder2](./06-old-folder2.png)
+
+  ![06-old-folder2](./06-old-folder2.png)
 
 - **Exposed Staff Salaries & Shareholder Records (`06-sql-salaries.png`):**
-![06-sql-salaries](./06-sql-salaries.png)
+
+  ![06-sql-salaries](./06-sql-salaries.png)
 
 ---
 
@@ -159,6 +198,3 @@ Before interacting with the web application portals, passive and active reconnai
 | **V-03** | **Weak PDF Document Passwords** | `patient_report_1–3.pdf` | **High** | Rapid offline dictionary/mask cracking exposes Protected Health Information (PHI). |
 | **V-04** | **Verbose Database Error Reporting & SQLi** | `/patient/login.php` | **High** | Raw `mysqli_query()` syntax errors leak backend database technology and query structure. |
 | **V-05** | **Sensitive Path Disclosure in `robots.txt`** | `/robots.txt` | **Medium** | Directly maps out restricted portals and legacy backup folders for attackers. |
-
----
-
