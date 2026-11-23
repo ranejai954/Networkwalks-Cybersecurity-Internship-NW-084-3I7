@@ -1,5 +1,19 @@
 # Week 4 Capstone Project: Black-Box Penetration Testing Report — Mediroza General Hospital
 
+### Phase 0: Pre-Engagement Footprinting & Infrastructure Enumeration
+Before interacting with the web application portals, passive and active reconnaissance was performed against `medirozahospital.com` to map DNS records, server headers, WAF presence, open network ports, and web server configurations (`whois`, `nslookup`, `whatweb`, `curl`, `wafw00f`, `dnsrecon`, `nmap`, and `nikto`).
+
+#### Evidence — Reconnaissance & Scanning (`./commands/`)
+![WHOIS Lookup](./commands/whois.png)
+![Nslookup DNS Records](./commands/nslookup.png)
+![DNSRecon Enumeration](./commands/dnsrecon.png)
+![WhatWeb Fingerprinting](./commands/whatweb.png)
+![cURL HTTP Headers](./commands/curl.png)
+![Wafw00f Firewall Detection](./commands/wafw00f.png)
+![Nmap Port & Service Scan](./commands/nmap.png)
+![Nikto Web Vulnerability Scan 1](./commands/nikto1.png)
+![Nikto Web Vulnerability Scan 2](./commands/nikto2.png)
+
 ## 01. Executive Summary
 A black-box security assessment was conducted against **Mediroza General Hospital** (`https://medirozahospital.com`) as part of the **Networkwalks Cybersecurity Internship (Batch B084)**. The objective was to evaluate the security posture of the hospital's public-facing web infrastructure, patient portal access controls, document encryption practices, and sensitive data storage.
 
